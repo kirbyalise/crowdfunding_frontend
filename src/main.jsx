@@ -5,10 +5,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
 import ProjectPage from "./pages/ProjectPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import ProjectFormPage from "./pages/ProjectFormPage.jsx";
 
 import NavBar from "./components/NavBar.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
-import NewProjectPage from "./pages/NewProjectPage.jsx";
+
+
+
 
 
 const router = createBrowserRouter([
@@ -20,7 +23,8 @@ const router = createBrowserRouter([
           { path: "/login", element: <LoginPage /> },
           { path: "/project/:id", element: <ProjectPage /> },
           { path: "/users", element: <SignUpPage /> },
-          { path: "/newproject", element: <NewProjectPage /> }
+          { path: "/projects", element: <ProjectPage /> },
+          { path: "/newproject", element: <ProjectFormPage /> }
 
 
       ],

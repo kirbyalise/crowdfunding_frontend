@@ -1,0 +1,138 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Lora', serif; /* Use Google Fonts like Lora or Roboto */
+    background-color: #fdf5e6; /* Light cream background */
+    color: #333; /* Dark gray text */
+    line-height: 1.6;
+  }
+  
+  /* NavBar Styling */
+  .navbar {
+    background-color: #ffb347; /* Pastel orange */
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar a {
+    color: white;
+    text-decoration: none;
+    margin: 0 1rem;
+    font-weight: bold;
+  }
+  
+  .navbar a:hover {
+    text-decoration: underline;
+  }
+  
+  /* HomePage Styling */
+  .homepage {
+    text-align: center;
+    padding: 2rem;
+  }
+  
+  .homepage h1 {
+    font-size: 2.5rem;
+    color: #ff6f61; /* Warm coral tone */
+  }
+  
+  .homepage p {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+    color: #555; /* Softer gray */
+  }
+  
+  /* Buttons */
+  button {
+    background-color: #ffb347;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #ff6f61;
+  }
+  
+  /* Card Styling */
+  .card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 1rem auto;
+    padding: 1.5rem;
+    max-width: 600px;
+  }
+  
+  .card h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card p {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  /* Form Styling */
+  form {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 2rem auto;
+  }
+  
+  form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+  }
+  
+  form input, form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  form input:focus, form textarea:focus {
+    outline: none;
+    border-color: #ff6f61;
+  }
+  
+  /* Footer Styling */
+  .footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+  }
+  
+  .footer a {
+    color: #ffb347;
+    text-decoration: none;
+  }
+  
+  .footer a:hover {
+    text-decoration: underline;
+  }
+  
