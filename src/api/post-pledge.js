@@ -1,23 +1,22 @@
-async function postProject(title, description, goal, image) {
-    const url = `${import.meta.env.VITE_API_URL}/projects/`;
+async function postPledge(amount, comment, anonymous, project) {
+    const url = `${import.meta.env.VITE_API_URL}/pledges/`;
     const token = window.localStorage.getItem("token");
     const response = await fetch(url, {
-      method: "POST", // We need to tell the server that we are sending JSON data so we set the Content-Type header to application/json
+      method: "POST", 
         headers: {
         "Content-Type": "application/json",
         "Authorization": `Token ${token}`
         },
         body: JSON.stringify({
-          "title": title,
-          "description": description,
-          "goal": goal,
-          "image": image,
-          "is_open": true
+          "amount": amount,
+          "comment": comment,
+          "anonymous":anonymous,
+          "project": project
         }),
     });
 
     if (!response.ok) {
-        const fallbackError = `Error trying to post project`;
+        const fallbackError = `Error trying to post pledge`;
 
         const data = await response.json().catch(() => {
         throw new Error(fallbackError);
@@ -30,4 +29,4 @@ async function postProject(title, description, goal, image) {
     return await response.json();
     }
 
-    export default postProject;
+    export default postPledge;

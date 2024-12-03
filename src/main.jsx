@@ -9,6 +9,7 @@ import ProjectFormPage from "./pages/ProjectFormPage.jsx";
 
 import NavBar from "./components/NavBar.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
+import PledgePage from "./pages/PledgePage.jsx";
 
 
 
@@ -24,9 +25,8 @@ const router = createBrowserRouter([
           { path: "/project/:id", element: <ProjectPage /> },
           { path: "/users", element: <SignUpPage /> },
           { path: "/projects", element: <ProjectPage /> },
-          { path: "/newproject", element: <ProjectFormPage /> }
-
-
+          { path: "/newproject", element: <ProjectFormPage /> },
+          { path: "/pledge", element: <PledgePage />}
       ],
   },
 ]);      
