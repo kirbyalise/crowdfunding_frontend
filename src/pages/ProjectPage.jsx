@@ -1,10 +1,12 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useProject from "../hooks/use-project";
 import UpdateProjectForm from "../components/UpdateProjectForm";
+import deleteProject from "../api/delete-project";
 
 function ProjectPage() {
 // Here we use a hook that comes for free in react router called `useParams` to get the id from the URL so that we can pass it to our useProject hook.
     const { id } = useParams();
+    const navigate = useNavigate();
 // useProject returns three pieces of info, so we need to grab them all here
     const { project, isLoading, error } = useProject(id);  
     if (isLoading) {
@@ -13,6 +15,11 @@ function ProjectPage() {
         
     if (error) {
         return (<p>{error.message}</p>)
+    }
+    function handleDelete(){ 
+        deleteProject(project.id).then((response) => {
+            navigate("/");
+        });
     }
     return (
         <div>
@@ -30,6 +37,7 @@ function ProjectPage() {
                 })}
             </ul>
             <div><UpdateProjectForm  project={project} />;</div>
+            <button onClick={handleDelete}>Delete</button>
         </div>
     );
 }
