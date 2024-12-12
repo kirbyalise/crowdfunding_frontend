@@ -13,8 +13,6 @@ import PledgePage from "./pages/PledgePage.jsx";
 
 
 
-
-
 const router = createBrowserRouter([
   {
       path: "/",
