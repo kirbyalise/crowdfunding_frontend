@@ -11,6 +11,7 @@ import NavBar from "./components/NavBar.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import PledgePage from "./pages/PledgePage.jsx";
 import { AuthProvider } from "./components/AuthProvider.jsx";
+import "./styles.css";
 
 
 
