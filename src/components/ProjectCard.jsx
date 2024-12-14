@@ -1,15 +1,27 @@
 import { Link } from "react-router-dom";
 import "./ProjectCard.css"
 
-function ProjectCard(props) {
-    const { projectData } = props;
+function ProjectCard({ projectData }) {
     const projectLink = `project/${projectData.id}`;
 
     return (
-        <div className="project-card">
+        <div className="card">
             <Link to={projectLink}>
-                <img src={projectData.image} />
-                <h3>{projectData.title}</h3>
+                {projectData.image && (
+                    <img 
+                        src={projectData.image} 
+                        alt={projectData.title}
+                        style={{
+                            width: '100%',
+                            height: '200px',
+                            objectFit: 'cover',
+                            borderRadius: '4px',
+                            marginBottom: '1rem'
+                        }}
+                    />
+                )}
+                <h2>{projectData.title}</h2>
+                <p>{projectData.description}</p>
             </Link>
         </div>
     );

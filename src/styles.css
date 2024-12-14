@@ -1,138 +1,250 @@
+/* Remove or update Google Font import since we're using Avenir Next */
+/* @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap'); */
+
 /* General Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Avenir Next", sans-serif;
+  background-color: #faf8f6;
+  color: #333;
+  line-height: 1.6;
+  padding: 1rem;
+}
+
+/* Navigation Bar */
+.navbar {
+  background-color: #ef9ead;
+  color: #fff;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  font-family: "Avenir Next", sans-serif;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin-right: 2rem;
+  font-weight: bold;
+  font-size: 1rem;
+  font-family: "Avenir Next", sans-serif;
+}
+
+.navbar a:last-child {
+  margin-right: 0;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* Homepage Styling */
+.homepage {
+  text-align: center;
+  padding: 2rem;
+}
+
+.homepage h1 {
+  font-size: 2.5rem;
+  color: #fcccdc;
+  font-family: "Avenir Next", sans-serif;
+  margin-bottom: 1rem;
+}
+
+.homepage p {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  color: #555;
+  font-family: "Avenir Next", sans-serif;
+}
+
+/* Buttons */
+button {
+  background-color: #fcccdc;
+  color: white;
+  border: none;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Avenir Next", sans-serif;
+}
+
+button:hover {
+  background-color: #ef9ead;
+}
+
+/* Cards */
+.card {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  text-align: center;
+  margin: 0;
+  border: 1px solid #ddd;
+  max-width: none;
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid Layout - for both homepage and other pages */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Card content styling */
+.card h2 {
+  font-size: 1.8rem;
+  color: #000000;
+  margin-bottom: 1rem;
+  font-family: "Avenir Next", sans-serif;
+}
+
+.card p {
+  font-size: 1rem;
+  color: #555;
+  font-family: "Avenir Next", sans-serif;
+}
+
+.card a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.card img {
+  transition: transform 0.2s ease-in-out;
+}
+
+.card:hover img {
+  transform: scale(1.05);
+}
+
+/* Form Styling */
+form {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 2rem auto;
+  border: 1px solid #ddd;
+}
+
+form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+  font-family: "Avenir Next", sans-serif;
+}
+
+form input, form textarea {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: "Avenir Next", sans-serif;
+}
+
+form input:focus, form textarea:focus {
+  outline: none;
+  border-color: #fcccdc;
+}
+
+/* Footer Styling */
+.footer {
+  background-color: #fcccdc;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-family: "Avenir Next", sans-serif;
+}
+
+.footer a {
+  color: #f5c6aa;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+/* Container */
+.page-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.5rem;
   }
-  
-  body {
-    font-family: 'Lora', serif; /* Use Google Fonts like Lora or Roboto */
-    background-color: #fdf5e6; /* Light cream background */
-    color: #333; /* Dark gray text */
-    line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
   }
-  
-  /* NavBar Styling */
-  .navbar {
-    background-color: #ffb347; /* Pastel orange */
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .navbar a {
-    color: white;
-    text-decoration: none;
-    margin: 0 1rem;
-    font-weight: bold;
-  }
-  
-  .navbar a:hover {
-    text-decoration: underline;
-  }
-  
-  /* HomePage Styling */
-  .homepage {
-    text-align: center;
+}
+
+/* Project Page Styling */
+.project-details {
+    max-width: 800px;
+    margin: 0 auto;
     padding: 2rem;
-  }
-  
-  .homepage h1 {
+}
+
+.project-details h2 {
     font-size: 2.5rem;
-    color: #ff6f61; /* Warm coral tone */
-  }
-  
-  .homepage p {
-    font-size: 1.2rem;
-    margin-top: 1rem;
-    color: #555; /* Softer gray */
-  }
-  
-  /* Buttons */
-  button {
-    background-color: #ffb347;
-    color: white;
-    border: none;
-    padding: 0.7rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #ff6f61;
-  }
-  
-  /* Card Styling */
-  .card {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    margin: 1rem auto;
-    padding: 1.5rem;
-    max-width: 600px;
-  }
-  
-  .card h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-  }
-  
-  .card p {
-    font-size: 1rem;
-    color: #555;
-  }
-  
-  /* Form Styling */
-  form {
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: 2rem auto;
-  }
-  
-  form label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: bold;
-  }
-  
-  form input, form textarea {
-    width: 100%;
-    padding: 0.8rem;
     margin-bottom: 1.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  form input:focus, form textarea:focus {
-    outline: none;
-    border-color: #ff6f61;
-  }
-  
-  /* Footer Styling */
-  .footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 1rem;
-    margin-top: 2rem;
-    font-size: 0.9rem;
-  }
-  
-  .footer a {
-    color: #ffb347;
-    text-decoration: none;
-  }
-  
-  .footer a:hover {
-    text-decoration: underline;
-  }
-  
+    color: #333;
+}
+
+.project-details h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+.project-details ul {
+    list-style: none;
+    padding: 1rem 0;
+}
+
+.project-details li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.project-details li:last-child {
+    border-bottom: none;
+}
