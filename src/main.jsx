@@ -13,6 +13,7 @@ import PledgePage from "./pages/PledgePage.jsx";
 import { AuthProvider } from "./components/AuthProvider.jsx";
 import "./styles.css";
 
+
 const AppLayout = () => {
   return (
     <div className="app-container">

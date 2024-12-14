@@ -45,6 +45,10 @@ function SignUpForm() {
 
     return (
         <form onSubmit={handleSubmit}>
+                        <p className="form-header">
+            Already have an account? <a href="/login">Log in</a>
+            </p>
+
             <div>
                 <label htmlFor="username">Username:</label>
                 <input
@@ -91,8 +95,11 @@ function SignUpForm() {
                 />
             </div>
             <button type="submit">Sign Up</button>
+
         </form>
     );
 }
 
 export default SignUpForm;
+
+
