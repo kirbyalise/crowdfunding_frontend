@@ -10,6 +10,12 @@ function ProjectPage() {
     const {auth, setAuth} = useAuth();
     const { project, isLoading, error } = useProject(id);  
 
+    // Simplified check for superuser or owner
+    const canModifyProject = Boolean(auth.token) && (
+        Boolean(auth.is_superuser) || 
+        Number(project?.owner) === Number(auth.user_id)
+    );
+
     if (isLoading) {
         return <p className="loading-message">loading...</p>;
     }
@@ -62,7 +68,7 @@ const { totalPledges, projectGoal, progressPercentage } = calculateProjectMetric
     return (
         <div className="page-container">
             <div className="project-card">
-                
+
                 {/* Project Header */}
                 <div className="project-header">
                     <h1 className="project-title">{project.title}</h1>
@@ -77,6 +83,7 @@ const { totalPledges, projectGoal, progressPercentage } = calculateProjectMetric
                             className="project-image"
                         />
                     </div>
+                
                 )}
 
                 {/* Funding Progress */}
@@ -138,7 +145,7 @@ const { totalPledges, projectGoal, progressPercentage } = calculateProjectMetric
                     </div>
 
                     {/* Admin Controls */}
-                    {auth.token && (
+                    {canModifyProject && (
                         <div className="admin-controls">
                             <UpdateProjectForm project={project} />
                             <button onClick={handleDelete} className="delete-button">
