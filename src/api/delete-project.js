@@ -30,4 +30,5 @@ async function deleteProject(projectId) {
     }
 }
 
+
 export default deleteProject;
