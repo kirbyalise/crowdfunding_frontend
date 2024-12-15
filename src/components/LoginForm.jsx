@@ -27,16 +27,16 @@ const {auth, setAuth}= useAuth();
               credentials.username,
               credentials.password
           ).then((response) => {
-            const isSuperUser = response.email === 'kirby.alise@hotmail.com';
-            
+            console.log("Login response:", response);  // Temporary log
             window.localStorage.setItem("token", response.token);
             window.localStorage.setItem("user_id", response.user_id);
-            window.localStorage.setItem("is_superuser", String(isSuperUser));
-            
+            window.localStorage.setItem("email", response.email);
+
             setAuth({
                 token: response.token,
                 user_id: response.user_id,
-                is_superuser: isSuperUser
+                email: response.email,
+                is_superuser: response.email === 'kirby.alise@hotmail.com'
             });
             navigate("/");
           });

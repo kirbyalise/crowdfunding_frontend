@@ -1,20 +1,39 @@
+import React, { useEffect } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
 import { UserCircle2, CircleDollarSign, Calendar } from 'lucide-react'; // Changed icons import
 import useProject from "../hooks/use-project";
 import useAuth from "../hooks/use-auth";
 import UpdateProjectForm from "../components/UpdateProjectForm";
+import deleteProject from "../api/delete-project";
 
 function ProjectPage() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const {auth, setAuth} = useAuth();
+    const {auth} = useAuth();
     const { project, isLoading, error } = useProject(id);  
 
-    // Simplified check for superuser or owner
+    // Simplified permission check
     const canModifyProject = Boolean(auth.token) && (
-        Boolean(auth.is_superuser) || 
-        Number(project?.owner) === Number(auth.user_id)
+        auth.email === 'kirby.alise@hotmail.com' || 
+        String(project?.owner) === String(auth.user_id)
     );
+
+    function handleDelete(){ 
+        if (!canModifyProject) {
+            alert("You don't have permission to delete this project");
+            return;
+        }
+
+        if (window.confirm("Are you sure you want to delete this project?")) {
+            deleteProject(project.id)
+                .then(() => {
+                    navigate("/");
+                })
+                .catch((error) => {
+                    alert("Error deleting project: " + error.message);
+                });
+        }
+    }
 
     if (isLoading) {
         return <p className="loading-message">loading...</p>;
@@ -22,12 +41,6 @@ function ProjectPage() {
         
     if (error) {
         return <p className="error-message">{error.message}</p>;
-    }
-
-    function handleDelete(){ 
-        deleteProject(project.id).then((response) => {
-            navigate("/");
-        });
     }
 
     const formatDate = (dateString) => {
@@ -148,9 +161,14 @@ const { totalPledges, projectGoal, progressPercentage } = calculateProjectMetric
                     {canModifyProject && (
                         <div className="admin-controls">
                             <UpdateProjectForm project={project} />
-                            <button onClick={handleDelete} className="delete-button">
-                                Delete Project
-                            </button>
+                            <div className="delete-button-container">
+                                <button 
+                                    onClick={handleDelete} 
+                                    className="delete-button"
+                                >
+                                    Delete Project
+                                </button>
+                            </div>
                         </div>
                     )}
                 </div>

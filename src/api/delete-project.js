@@ -1,39 +1,33 @@
 async function deleteProject(projectId) {
-    // First we create the URL for the request by using the Vite environment variable and the API endpoint.
+    const token = window.localStorage.getItem("token");
+    const email = window.localStorage.getItem("email");
     const url = `${import.meta.env.VITE_API_URL}/projects/${projectId}`;
 
-    // Next we call the fetch function and pass in the url and the method. The method is set to `GET` because we are fetching data. Fetch returns a "promise".
-    // If the promise "resolves" (i.e., if the back end responds) we will get the data we need in the `response` variable. If the back end fails to respond then we'll get an error.
-    const token = window.localStorage.getItem("token");
-    const response = await fetch(url, {
-      method: "DELETE", // We need to tell the server that we are sending JSON data so we set the Content-Type header to application/json
-        headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Token ${token}`
-        },
-    });
-
-    // We can use the `ok` property on `response` to check if the request was successful.
-    // If the request was not successful then we will throw an error...
-    if (!response.ok) {
-        const fallbackError = "Error deleting project";
-
-      // Here we use the `await` keyword to signal to Javascript that it shouldn't run this code until `response` gets turned into JSON
-        const data = await response.json().catch(() => {
-        // If the response is not JSON then we will throw a generic error. `catch` will trigger if we try to turn `response` into JSON and fail
-            throw new Error(fallbackError);
+    try {
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${token}`
+            },
+            body: JSON.stringify({
+                "user_email": email
+            })
         });
 
-      // If the error response *is* JSON, then we will include the info from that JSON in the error we throw. 
-      // Usually, the server will send the error message in the `detail` property.
-      // You may have not configured the back end to use the `detail` property. If that is the case then you can change the code below to use a different property, e.g.: `message`
-        const errorMessage = data?.detail ?? fallbackError;
-        throw new Error(errorMessage);
-    }
+        if (!response.ok) {
+            const responseData = await response.json().catch(() => null);
+            throw new Error(responseData?.detail || 'Failed to delete project');
+        }
 
-    // ...on the other hand, if the request was successful then we will return the data from the response. 
-    // Turing the response to JSON takes time so we need to use the `await` keyword again.
-    return true;
+        return true;
+    } catch (error) {
+        console.error('Delete error details:', {
+            message: error.message,
+            token: token ? 'Token exists' : 'No token'
+        });
+        throw error;
+    }
 }
 
 export default deleteProject;

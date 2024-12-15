@@ -4,6 +4,12 @@ import "./ProjectCard.css"
 function ProjectCard({ projectData }) {
     const projectLink = `project/${projectData.id}`;
 
+    // Calculate progress percentage and total raised
+    const totalRaised = projectData.total_raised || 0;
+    const progressPercentage = projectData.goal > 0 
+        ? Math.min((totalRaised / projectData.goal) * 100, 100)
+        : 0;
+
     return (
         <div className="card">
             <Link to={projectLink}>
@@ -21,7 +27,20 @@ function ProjectCard({ projectData }) {
                     />
                 )}
                 <h2>{projectData.title}</h2>
-                <p>{projectData.description}</p>
+                
+                {/* Progress Bar */}
+                <div className="progress-container">
+                    <div className="progress-bar">
+                        <div 
+                            className="progress-fill"
+                            style={{width: `${progressPercentage}%`}}
+                        ></div>
+                    </div>
+                    <div className="funding-stats">
+                        <span>${totalRaised.toLocaleString()} raised</span>
+                        <span>${projectData.goal.toLocaleString()} goal</span>
+                    </div>
+                </div>
             </Link>
         </div>
     );
