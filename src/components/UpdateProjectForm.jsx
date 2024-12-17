@@ -24,7 +24,7 @@ function UpdateProjectForm(props) {
         auth.user_id === String(project?.owner)
     );
 
-    const [projectdata, setprojectdata] = useState({
+    const [projectData, setProjectData] = useState({
         title: project.title,
         description: project.description,
         goal: project.goal,
@@ -34,7 +34,7 @@ function UpdateProjectForm(props) {
 
     const handleChange = (event) => {
         const { id, value } = event.target;
-            setprojectdata((prevCredentials) => ({
+            setProjectData((prevCredentials) => ({
             ...prevCredentials,
             [id]: value,
             }));
@@ -47,12 +47,12 @@ function UpdateProjectForm(props) {
             return;
         }
         
-        if (projectdata.title && projectdata.description && projectdata.goal && projectdata.image) {
+        if (projectData.title && projectData.description && projectData.goal && projectData.image) {
             putProject(
-                projectdata.title,
-                projectdata.description, 
-                projectdata.goal, 
-                projectdata.image, 
+                projectData.title,
+                projectData.description, 
+                projectData.goal, 
+                projectData.image, 
                 project.id
             ).then((response) => {
                 navigate("/");
@@ -72,7 +72,7 @@ function UpdateProjectForm(props) {
                 type="text"
                 id="title"
                 placeholder="Enter Project Title"
-                value={projectdata.title}
+                value={projectData.title}
                 onChange={handleChange}
             />
             </div>
@@ -81,7 +81,7 @@ function UpdateProjectForm(props) {
                 <label htmlFor="description">Project Description:</label>
                 <AutoResizeTextArea
                     id="description"
-                    value={projectdata.description}
+                    value={projectData.description}
                     onChange={handleChange}
                     placeholder="Project description"
                 />
@@ -93,7 +93,7 @@ function UpdateProjectForm(props) {
                 type="goal"
                 id="goal"
                 placeholder="$"
-                value={projectdata.goal}
+                value={projectData.goal}
                 onChange={handleChange}
             />
             </div>
@@ -104,7 +104,7 @@ function UpdateProjectForm(props) {
                 type="text"
                 id="image"
                 placeholder="Project Image URL"
-                value={projectdata.image}
+                value={projectData.image}
                 onChange={handleChange}
             />
             </div>
@@ -115,7 +115,7 @@ function UpdateProjectForm(props) {
                     type="text"
                     id="creator_name"
                     placeholder="Enter creator's name"
-                    value={projectdata.creator_name}
+                    value={projectData.creator_name}
                     onChange={handleChange}
                 />
             </div>
