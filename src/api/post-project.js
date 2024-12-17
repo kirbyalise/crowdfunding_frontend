@@ -1,35 +1,43 @@
 async function postProject(title, description, goal, image, owner_username) {
     const url = `${import.meta.env.VITE_API_URL}/projects/`;
     const token = window.localStorage.getItem("token");
-    const email = window.localStorage.getItem("email");
 
-    const response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Token ${token}`
-        },
-        body: JSON.stringify({
-            "title": title,
-            "description": description,
-            "goal": goal,
-            "image": image,
-            "is_open": true,
-            "user_email": email,
-            "creator_name": owner_username
-        }),
-    });
+    // Convert goal to number if it's a string
+    const numericGoal = Number(goal);
 
-    if (!response.ok) {
-        const fallbackError = `Error trying to post project`;
-        const data = await response.json().catch(() => {
-            throw new Error(fallbackError);
+    // Ensure image URL is valid
+    const imageUrl = image.startsWith('http') ? image : `https://${image}`;
+
+    try {
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Token ${token}`
+            },
+            body: JSON.stringify({
+                title: title,
+                description: description,
+                goal: numericGoal,
+                image: imageUrl,
+                is_open: true,
+                owner: window.localStorage.getItem("user_id"),
+                creator_name: owner_username
+            }),
         });
-        const errorMessage = data?.detail ?? fallbackError;
-        throw new Error(errorMessage);
-    }
 
-    return await response.json();
+        if (!response.ok) {
+            const data = await response.json();
+            console.error("Project creation error:", data);
+            const errorMessage = data.image ? data.image[0] : 'Error trying to post project';
+            throw new Error(errorMessage);
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error("Post project error:", error);
+        throw error;
+    }
 }
 
 export default postProject;

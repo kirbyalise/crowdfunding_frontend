@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { UserCircle2, CircleDollarSign, Calendar } from 'lucide-react'; // Changed icons import
 import useProject from "../hooks/use-project";
 import useAuth from "../hooks/use-auth";
@@ -85,7 +85,7 @@ const calculateProjectMetrics = () => {
 };
 
 const { totalPledges, projectGoal, progressPercentage } = calculateProjectMetrics();
-
+const pledgeLink=`/pledge/${project.id}`;
     return (
         <div className="page-container">
             <div className="project-card">
@@ -140,6 +140,9 @@ const { totalPledges, projectGoal, progressPercentage } = calculateProjectMetric
                             <span className="stat-label">Created</span>
                         </div>
                     </div>
+
+                    <Link to={pledgeLink}>
+                    <button>Make a Pledge</button></Link>
 
                 {/* Project Description */}
                 <div className="project-description-container">

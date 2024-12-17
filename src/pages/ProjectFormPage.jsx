@@ -12,6 +12,8 @@ function ProjectFormPage() {
         image: "",
         owner_username: ""
     });
+    const [imageFile, setImageFile] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
 
     const handleChange = (event) => {
         const { id, value } = event.target;
@@ -21,20 +23,54 @@ function ProjectFormPage() {
         }));
     };
 
-    const handleSubmit = (event) => {
+    const handleImageChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            setImageFile(file);
+            // Create preview URL
+            const previewUrl = URL.createObjectURL(file);
+            setImagePreview(previewUrl);
+            // Set the image name in projectData
+            setProjectData(prev => ({
+                ...prev,
+                image: file.name
+            }));
+        }
+    };
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        if (projectData.title && projectData.description && projectData.goal && projectData.image && projectData.owner_username) {
-            postProject(
-                projectData.title,
-                projectData.description,
-                projectData.goal,
-                projectData.image,
-                projectData.owner_username
-            ).then((response) => {
+        if (projectData.title && projectData.description && projectData.goal && projectData.owner_username) {
+            try {
+                // If there's a file, upload it first
+                let imageUrl = projectData.image;
+                if (imageFile) {
+                    const formData = new FormData();
+                    formData.append('image', imageFile);
+                    // You'll need to create an endpoint for image upload
+                    const uploadResponse = await fetch(`${import.meta.env.VITE_API_URL}/upload-image/`, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    if (!uploadResponse.ok) throw new Error('Failed to upload image');
+                    const uploadData = await uploadResponse.json();
+                    imageUrl = uploadData.url;
+                }
+
+                // Then create the project with the image URL
+                await postProject(
+                    projectData.title,
+                    projectData.description,
+                    projectData.goal,
+                    imageUrl,
+                    projectData.owner_username
+                );
                 navigate("/");
-            });
+            } catch (error) {
+                alert(error.message);
+            }
         } else {
-            alert("Please fill in all fields, including creator's name");
+            alert("Please fill in all required fields");
         }
     };
 
@@ -72,15 +108,31 @@ function ProjectFormPage() {
                 />
             </div>
 
-            <div>
-                <label htmlFor="image">Image:</label>
-                <input
-                    type="text"
-                    id="image"
-                    placeholder="Project Image URL"
-                    value={projectData.image}
-                    onChange={handleChange}
-                />
+            <div className="image-upload-container">
+                <label htmlFor="image">Project Image:</label>
+                <div className="image-input-group">
+                    <input
+                        type="file"
+                        id="image-file"
+                        accept="image/*"
+                        onChange={handleImageChange}
+                        className="image-input"
+                    />
+                    <p className="or-divider">OR</p>
+                    <input
+                        type="text"
+                        id="image"
+                        placeholder="Enter Image URL"
+                        value={projectData.image}
+                        onChange={handleChange}
+                        className="url-input"
+                    />
+                </div>
+                {imagePreview && (
+                    <div className="image-preview">
+                        <img src={imagePreview} alt="Preview" />
+                    </div>
+                )}
             </div>
 
             <div>

@@ -3,14 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 import postPledge from "../api/post-pledge.js"
 
-function PledgeForm() {
+function PledgeForm(props) {
 const navigate = useNavigate();
-
+const {projectId}=props;
 const [credentials, setCredentials] = useState({
     amount: "",
     comment: "",
-    anonymous: "",
-    project: ""
+    anonymous: false,
+    project: projectId
 });
 
 const handleChange = (event) => {
@@ -23,7 +23,7 @@ const handleChange = (event) => {
 
 const handleSubmit = (event) => {
     event.preventDefault();
-        if (credentials.amount && credentials.comment && credentials.anonymous && credentials.project) {
+        if (credentials.amount && credentials.comment) {
             postPledge(
                 credentials.amount,
                 credentials.comment,  
@@ -72,6 +72,7 @@ const handleSubmit = (event) => {
                 <input
                 type="project"
                 id="project"
+                value= {credentials.project}
                 placeholder="Project ID"
                 onChange={handleChange}
             />
