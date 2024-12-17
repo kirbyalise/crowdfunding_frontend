@@ -12,11 +12,19 @@ function ProjectPage() {
     const {auth} = useAuth();
     const { project, isLoading, error } = useProject(id);  
 
-    // Simplified permission check
+    // Update permission check to include superuser
     const canModifyProject = Boolean(auth.token) && (
-        auth.email === 'kirby.alise@hotmail.com' || 
-        String(project?.owner) === String(auth.user_id)
+        auth.is_superuser || // If superuser, allow all actions
+        auth.user_id === String(project?.owner)
     );
+
+    console.log("Auth state:", {
+        token: auth.token,
+        is_superuser: auth.is_superuser,
+        user_id: auth.user_id,
+        project_owner: project?.owner
+    });
+    console.log("Can modify:", canModifyProject);
 
     function handleDelete(){ 
         if (!canModifyProject) {
@@ -157,7 +165,7 @@ const { totalPledges, projectGoal, progressPercentage } = calculateProjectMetric
                         </ul>
                     </div>
 
-                    {/* Admin Controls */}
+                    {/* Admin Controls - Only show if user has permission */}
                     {canModifyProject && (
                         <div className="admin-controls">
                             <UpdateProjectForm project={project} />

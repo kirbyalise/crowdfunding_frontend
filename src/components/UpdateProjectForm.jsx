@@ -10,10 +10,18 @@ function UpdateProjectForm(props) {
     const navigate = useNavigate();
     const {auth} = useAuth();
 
+    console.log("UpdateForm props:", {
+        project: project,
+        auth: auth,
+        canEdit: Boolean(auth.token) && (
+            auth.is_superuser === true || 
+            String(project?.owner) === String(auth.user_id)
+        )
+    });
+
     const canEdit = Boolean(auth.token) && (
-        auth.email === 'kirby.alise@hotmail.com' || 
-        auth.is_superuser === true || 
-        String(project?.owner) === String(auth.user_id)
+        auth.is_superuser || // If superuser, allow all actions
+        auth.user_id === String(project?.owner)
     );
 
     const [projectdata, setprojectdata] = useState({
