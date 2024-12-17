@@ -10,7 +10,6 @@ function ProjectFormPage() {
         description: "",
         goal: "",
         image: "",
-        owner_username: ""
     });
     const [imageFile, setImageFile] = useState(null);
     const [imagePreview, setImagePreview] = useState(null);
@@ -40,7 +39,7 @@ function ProjectFormPage() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (projectData.title && projectData.description && projectData.goal && projectData.owner_username) {
+        if (projectData.title && projectData.description && projectData.goal) {
             try {
                 // If there's a file, upload it first
                 let imageUrl = projectData.image;
@@ -63,7 +62,6 @@ function ProjectFormPage() {
                     projectData.description,
                     projectData.goal,
                     imageUrl,
-                    projectData.owner_username
                 );
                 navigate("/");
             } catch (error) {
@@ -133,17 +131,6 @@ function ProjectFormPage() {
                         <img src={imagePreview} alt="Preview" />
                     </div>
                 )}
-            </div>
-
-            <div>
-                <label htmlFor="owner_username">Created By:</label>
-                <input
-                    type="text"
-                    id="owner_username"
-                    placeholder="Enter your name"
-                    value={projectData.owner_username}
-                    onChange={handleChange}
-                />
             </div>
 
             <button type="submit" onClick={handleSubmit}>
