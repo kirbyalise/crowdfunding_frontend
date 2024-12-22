@@ -27,20 +27,22 @@ const {auth, setAuth}= useAuth();
               credentials.username,
               credentials.password
           ).then((response) => {
-            // Check if this is the superuser
-            const isSuperUser = credentials.username === 'superkirby';
-            
-            window.localStorage.setItem("token", response.token);
-            window.localStorage.setItem("user_id", "1");
-            window.localStorage.setItem("email", credentials.username);
-            window.localStorage.setItem("is_superuser", String(isSuperUser));
 
+
+            // Store in localStorage
+            window.localStorage.setItem("token", response.token);
+            window.localStorage.setItem("user_id", response.user_id);
+            window.localStorage.setItem("username", credentials.username);
+
+            // Set auth state
             setAuth({
                 token: response.token,
-                user_id: "1",
-                email: credentials.username,
-                is_superuser: isSuperUser
+                user_id: response.user_id,
+                username: credentials.username,
+                is_superuser: credentials.username === 'superkirby'
             });
+
+            
             navigate("/");
           });
       }

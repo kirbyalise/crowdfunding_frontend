@@ -12,10 +12,19 @@ function ProjectPage() {
     const {auth} = useAuth();
     const { project, isLoading, error } = useProject(id);  
 
-    // Update permission check to include superuser
+    // Add this console log before the permission check
+    console.log("Debug values:", {
+        hasToken: Boolean(auth.token),
+        username: auth.username,
+        userId: auth.user_id,
+        projectOwner: project?.owner,
+        rawAuth: auth
+    });
+
+    // Update permission check
     const canModifyProject = Boolean(auth.token) && (
-        auth.is_superuser || // If superuser, allow all actions
-        auth.user_id === String(project?.owner)
+        auth.username === 'superkirby' || // Superuser check
+        Number(auth.user_id) === Number(project?.owner) // Project owner check
     );
 
     console.log("Auth state:", {

@@ -10,18 +10,10 @@ function UpdateProjectForm(props) {
     const navigate = useNavigate();
     const {auth} = useAuth();
 
-    console.log("UpdateForm props:", {
-        project: project,
-        auth: auth,
-        canEdit: Boolean(auth.token) && (
-            auth.is_superuser === true || 
-            String(project?.owner) === String(auth.user_id)
-        )
-    });
 
     const canEdit = Boolean(auth.token) && (
-        auth.is_superuser || // If superuser, allow all actions
-        auth.user_id === String(project?.owner)
+        auth.username === 'superkirby' || // Superuser check
+        Number(auth.user_id) === Number(project?.owner) // Project owner check
     );
 
     const [projectData, setProjectData] = useState({
@@ -107,17 +99,6 @@ function UpdateProjectForm(props) {
                 value={projectData.image}
                 onChange={handleChange}
             />
-            </div>
-
-            <div>
-                <label htmlFor="creator_name">Created By:</label>
-                <input
-                    type="text"
-                    id="creator_name"
-                    placeholder="Enter creator's name"
-                    value={projectData.creator_name}
-                    onChange={handleChange}
-                />
             </div>
 
             <button type="submit" onClick={handleSubmit}>

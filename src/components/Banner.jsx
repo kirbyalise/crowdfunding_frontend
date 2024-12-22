@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 
 const Banner = () => {
@@ -8,15 +9,18 @@ const Banner = () => {
       backgroundColor: '#fff',
       textAlign: 'center'
     }}>
-      <img 
-        src={logo} 
-        alt="Site Logo" 
-        style={{
-          height: '120px',
-          maxWidth: '100%',
-          objectFit: 'contain'
-        }}
-      />
+      <Link to="/">
+        <img 
+          src={logo} 
+          alt="Site Logo" 
+          style={{
+            height: '120px',
+            maxWidth: '100%',
+            objectFit: 'contain',
+            cursor: 'pointer'
+          }}
+        />
+      </Link>
     </div>
   );
 };
